@@ -12,7 +12,6 @@
 		351E9479250A65D400A05B6D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9472250A65D400A05B6D /* AppDelegate.swift */; };
 		351E947A250A65D400A05B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9473250A65D400A05B6D /* SceneDelegate.swift */; };
 		351E947B250A65D400A05B6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 351E9475250A65D400A05B6D /* Assets.xcassets */; };
-		351E947C250A65D400A05B6D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 351E9476250A65D400A05B6D /* Info.plist */; };
 		351E9484250A6BB900A05B6D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9483250A6BB900A05B6D /* BrowserViewController.swift */; };
 		351E9487250A6C3100A05B6D /* BrowserTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9486250A6C3100A05B6D /* BrowserTabViewController.swift */; };
 		351E9489250A6C4400A05B6D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9488250A6C4400A05B6D /* BookmarkViewController.swift */; };
@@ -199,7 +198,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				351E947C250A65D400A05B6D /* Info.plist in Resources */,
 				351E9477250A65D400A05B6D /* LaunchScreen.storyboard in Resources */,
 				351E947B250A65D400A05B6D /* Assets.xcassets in Resources */,
 				351E9478250A65D400A05B6D /* Main.storyboard in Resources */,
@@ -363,7 +361,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VBrowser/Info.plist;
+				INFOPLIST_FILE = VBrowser/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -382,7 +380,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = VBrowser/Info.plist;
+				INFOPLIST_FILE = VBrowser/SupportingFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
