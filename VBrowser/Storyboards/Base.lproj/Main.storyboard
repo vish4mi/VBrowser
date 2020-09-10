@@ -92,11 +92,45 @@
                         <outlet property="reloadButton" destination="0VK-Oh-pW8" id="v1R-cI-Z4z"/>
                         <outlet property="searchBar" destination="m5l-w2-ZyS" id="RNO-xX-l00"/>
                         <outlet property="tabsButton" destination="WWM-Tr-0ob" id="79f-pP-Cwh"/>
+                        <segue destination="rDw-MF-rIx" kind="show" id="NeD-4A-5ky"/>
+                        <segue destination="M7K-1q-hQK" kind="show" id="2FE-3G-ucf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="127"/>
+        </scene>
+        <!--Bookmarks-->
+        <scene sceneID="h61-PX-4YH">
+            <objects>
+                <viewController id="rDw-MF-rIx" customClass="BookmarkViewController" customModule="VBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zjf-3X-5TD">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="RAd-qp-Czs"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Bookmarks" id="t3e-bt-558"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="89j-36-wyA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1135" y="423"/>
+        </scene>
+        <!--New Tab-->
+        <scene sceneID="Jgj-EW-b02">
+            <objects>
+                <viewController id="M7K-1q-hQK" customClass="BrowserTabViewController" customModule="VBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JM7-Sz-8O8">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="vNH-zL-bUk"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New Tab" id="64s-9u-Paa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qv7-ps-wTO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1135" y="-241"/>
         </scene>
     </scenes>
 </document>
