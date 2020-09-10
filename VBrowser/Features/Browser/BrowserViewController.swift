@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import RealmSwift
 
 class BrowserViewController: UIViewController {
     
@@ -23,12 +24,20 @@ class BrowserViewController: UIViewController {
     var errorView = UIView()
     var errorLabel = UILabel()
     
+    var bookmarks = [Bookmark]()
+    var tabs = [Tab]()
+    var webviews = [WKWebView]()
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureSearchBar()
         configureWebView()
         configureWebViewError()
         updateNavigationToolBarButtons()
+        loadBookmarks()
+        loadTabs()
     }
     
     override func viewDidLayoutSubviews() {
@@ -64,6 +73,17 @@ class BrowserViewController: UIViewController {
         
         //errorView.addSubview(errorLabel)
         //browserView.addSubview(errorView)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == SegueID.tabSegue {
+            let tabsViewController = segue.destination as! BrowserTabViewController
+            tabsViewController.tabs = self.tabs
+            
+        } else if segue.identifier == SegueID.bookmarkSegue {
+            let bookmarkViewController = segue.destination as! BookmarkViewController
+            bookmarkViewController.bookmarks = self.bookmarks
+        }
     }
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {
@@ -196,4 +216,27 @@ extension BrowserViewController: WKNavigationDelegate {
         completionHandler(.useCredential, cred)
     }
     
+}
+
+extension BrowserViewController {
+    func loadBookmarks() {
+        let realm = try! Realm()
+        let results = realm.objects(Bookmark.self)
+        
+        for result in results {
+            bookmarks.append(result)
+        }
+        
+    }
+}
+
+extension BrowserViewController {
+    func loadTabs() {
+        let realm = try! Realm()
+        let results = realm.objects(Tab.self)
+        
+        for result in results {
+            tabs.append(result)
+        }
+    }
 }

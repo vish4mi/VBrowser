@@ -149,6 +149,9 @@
                         <viewLayoutGuide key="safeArea" id="RAd-qp-Czs"/>
                     </view>
                     <navigationItem key="navigationItem" title="Bookmarks" id="t3e-bt-558"/>
+                    <connections>
+                        <outlet property="bookmarkTableView" destination="TW7-Cs-eWM" id="EqA-jj-3BL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="89j-36-wyA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -203,6 +206,9 @@
                         <viewLayoutGuide key="safeArea" id="vNH-zL-bUk"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Tab" id="64s-9u-Paa"/>
+                    <connections>
+                        <outlet property="tabsTableView" destination="Dxi-dO-rv3" id="53C-rV-dDL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qv7-ps-wTO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
