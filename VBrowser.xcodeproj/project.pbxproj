@@ -13,6 +13,10 @@
 		351E947A250A65D400A05B6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9473250A65D400A05B6D /* SceneDelegate.swift */; };
 		351E947B250A65D400A05B6D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 351E9475250A65D400A05B6D /* Assets.xcassets */; };
 		351E947C250A65D400A05B6D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 351E9476250A65D400A05B6D /* Info.plist */; };
+		351E9484250A6BB900A05B6D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9483250A6BB900A05B6D /* BrowserViewController.swift */; };
+		351E9487250A6C3100A05B6D /* BrowserTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9486250A6C3100A05B6D /* BrowserTabViewController.swift */; };
+		351E9489250A6C4400A05B6D /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E9488250A6C4400A05B6D /* BookmarkViewController.swift */; };
+		351E948B250A6C7400A05B6D /* UIColor+ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 351E948A250A6C7400A05B6D /* UIColor+ColorConstants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,10 @@
 		351E9473250A65D400A05B6D /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		351E9475250A65D400A05B6D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		351E9476250A65D400A05B6D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		351E9483250A6BB900A05B6D /* BrowserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
+		351E9486250A6C3100A05B6D /* BrowserTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrowserTabViewController.swift; sourceTree = "<group>"; };
+		351E9488250A6C4400A05B6D /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		351E948A250A6C7400A05B6D /* UIColor+ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorConstants.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,9 +75,9 @@
 		351E946A250A65D400A05B6D /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				351E9485250A6C0F00A05B6D /* Tabs */,
 				351E9481250A674200A05B6D /* Bookmarks */,
 				351E947E250A674200A05B6D /* Browser */,
-				351E9480250A674200A05B6D /* Tabs */,
 			);
 			path = Features;
 			sourceTree = "<group>";
@@ -86,6 +94,7 @@
 		351E9470250A65D400A05B6D /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				351E948A250A6C7400A05B6D /* UIColor+ColorConstants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -111,22 +120,25 @@
 		351E947E250A674200A05B6D /* Browser */ = {
 			isa = PBXGroup;
 			children = (
+				351E9483250A6BB900A05B6D /* BrowserViewController.swift */,
 			);
 			path = Browser;
-			sourceTree = "<group>";
-		};
-		351E9480250A674200A05B6D /* Tabs */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Tabs;
 			sourceTree = "<group>";
 		};
 		351E9481250A674200A05B6D /* Bookmarks */ = {
 			isa = PBXGroup;
 			children = (
+				351E9488250A6C4400A05B6D /* BookmarkViewController.swift */,
 			);
 			path = Bookmarks;
+			sourceTree = "<group>";
+		};
+		351E9485250A6C0F00A05B6D /* Tabs */ = {
+			isa = PBXGroup;
+			children = (
+				351E9486250A6C3100A05B6D /* BrowserTabViewController.swift */,
+			);
+			path = Tabs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -202,7 +214,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				351E9479250A65D400A05B6D /* AppDelegate.swift in Sources */,
+				351E9484250A6BB900A05B6D /* BrowserViewController.swift in Sources */,
 				351E947A250A65D400A05B6D /* SceneDelegate.swift in Sources */,
+				351E9487250A6C3100A05B6D /* BrowserTabViewController.swift in Sources */,
+				351E9489250A6C4400A05B6D /* BookmarkViewController.swift in Sources */,
+				351E948B250A6C7400A05B6D /* UIColor+ColorConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
