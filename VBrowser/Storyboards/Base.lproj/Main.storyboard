@@ -28,36 +28,75 @@
             </objects>
             <point key="canvasLocation" x="-707" y="127"/>
         </scene>
-        <!--View Controller-->
+        <!--VBrowser-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VBrowser" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="BrowserViewController" customModule="VBrowser" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" showsBookmarkButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5l-w2-ZyS">
+                                <rect key="frame" x="0.0" y="88" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <scopeButtonTitles>
+                                    <string>Title</string>
+                                    <string>Title</string>
+                                </scopeButtonTitles>
+                            </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hy3-bw-IBx">
+                                <rect key="frame" x="0.0" y="144" width="414" height="669"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Hy3-bw-IBx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="0Av-1f-9kC"/>
+                            <constraint firstItem="m5l-w2-ZyS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="MOG-Cy-rNx"/>
+                            <constraint firstItem="Hy3-bw-IBx" firstAttribute="top" secondItem="m5l-w2-ZyS" secondAttribute="bottom" id="OVD-zq-cZf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hy3-bw-IBx" secondAttribute="trailing" id="ugQ-I1-kRm"/>
+                            <constraint firstItem="m5l-w2-ZyS" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="vMq-y0-dm6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hy3-bw-IBx" secondAttribute="bottom" id="vZH-EV-IyC"/>
+                            <constraint firstItem="m5l-w2-ZyS" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="wji-O8-QHc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <toolbarItems>
-                        <barButtonItem image="backward" id="Jyj-Ti-nW6"/>
-                        <barButtonItem image="forward" id="5J5-5S-r51"/>
+                        <barButtonItem systemItem="rewind" id="Jyj-Ti-nW6">
+                            <connections>
+                                <action selector="goBack:" destination="BYZ-38-t0r" id="yXa-3g-eZe"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem systemItem="fastForward" id="5J5-5S-r51">
+                            <connections>
+                                <action selector="goForward:" destination="BYZ-38-t0r" id="FGQ-EL-d3W"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="pLQ-op-PYb"/>
-                        <barButtonItem image="reload" id="0VK-Oh-pW8"/>
+                        <barButtonItem systemItem="refresh" id="0VK-Oh-pW8">
+                            <connections>
+                                <action selector="reload:" destination="BYZ-38-t0r" id="ejY-uY-sL8"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
-                    <navigationItem key="navigationItem" id="Oi5-MS-Cqq">
+                    <navigationItem key="navigationItem" title="VBrowser" id="Oi5-MS-Cqq">
                         <barButtonItem key="leftBarButtonItem" title="Bookmarks" id="HEA-Gm-JHO"/>
                         <barButtonItem key="rightBarButtonItem" title="Tabs" id="WWM-Tr-0ob"/>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="backwardButton" destination="Jyj-Ti-nW6" id="zmu-YL-rcE"/>
+                        <outlet property="bookmarksButton" destination="HEA-Gm-JHO" id="SQS-S1-ybk"/>
+                        <outlet property="browserView" destination="Hy3-bw-IBx" id="igq-Wq-6VE"/>
+                        <outlet property="forwardButton" destination="5J5-5S-r51" id="o0x-qx-QQo"/>
+                        <outlet property="reloadButton" destination="0VK-Oh-pW8" id="v1R-cI-Z4z"/>
+                        <outlet property="searchBar" destination="m5l-w2-ZyS" id="RNO-xX-l00"/>
+                        <outlet property="tabsButton" destination="WWM-Tr-0ob" id="79f-pP-Cwh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="127"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="backward" width="128" height="128"/>
-        <image name="forward" width="256" height="256"/>
-        <image name="reload" width="128" height="128"/>
-    </resources>
 </document>
