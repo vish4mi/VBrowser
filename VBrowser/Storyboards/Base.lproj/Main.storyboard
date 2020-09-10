@@ -92,8 +92,8 @@
                         <outlet property="reloadButton" destination="0VK-Oh-pW8" id="v1R-cI-Z4z"/>
                         <outlet property="searchBar" destination="m5l-w2-ZyS" id="RNO-xX-l00"/>
                         <outlet property="tabsButton" destination="WWM-Tr-0ob" id="79f-pP-Cwh"/>
-                        <segue destination="rDw-MF-rIx" kind="show" id="NeD-4A-5ky"/>
-                        <segue destination="M7K-1q-hQK" kind="show" id="2FE-3G-ucf"/>
+                        <segue destination="rDw-MF-rIx" kind="show" identifier="bookmarkSegueIdentifier" id="NeD-4A-5ky"/>
+                        <segue destination="M7K-1q-hQK" kind="show" identifier="tabSegueIdentifier" id="2FE-3G-ucf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -107,7 +107,45 @@
                     <view key="view" contentMode="scaleToFill" id="zjf-3X-5TD">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TW7-Cs-eWM">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookmarkTableViewCellIdentifier" textLabel="TZ6-PE-tQX" detailTextLabel="Qce-dv-UvE" style="IBUITableViewCellStyleSubtitle" id="w48-1X-zHO" customClass="BookmarkTableViewCell" customModule="VBrowser" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="w48-1X-zHO" id="gMa-7a-THe">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="TZ6-PE-tQX">
+                                                    <rect key="frame" x="20" y="10" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qce-dv-UvE">
+                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="RAd-qp-Czs" firstAttribute="bottom" secondItem="TW7-Cs-eWM" secondAttribute="bottom" id="8Te-PS-U6S"/>
+                            <constraint firstItem="RAd-qp-Czs" firstAttribute="trailing" secondItem="TW7-Cs-eWM" secondAttribute="trailing" id="8eY-Lm-Leu"/>
+                            <constraint firstItem="TW7-Cs-eWM" firstAttribute="top" secondItem="RAd-qp-Czs" secondAttribute="top" id="PT4-CS-nxX"/>
+                            <constraint firstItem="TW7-Cs-eWM" firstAttribute="leading" secondItem="RAd-qp-Czs" secondAttribute="leading" id="aI7-jF-ieZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="RAd-qp-Czs"/>
                     </view>
                     <navigationItem key="navigationItem" title="Bookmarks" id="t3e-bt-558"/>
@@ -123,7 +161,45 @@
                     <view key="view" contentMode="scaleToFill" id="JM7-Sz-8O8">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Dxi-dO-rv3">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TabTableViewCellIdentifier" textLabel="vln-tW-uF1" detailTextLabel="hho-XG-55v" style="IBUITableViewCellStyleSubtitle" id="qiY-AN-X87" customClass="TabTableViewCell" customModule="VBrowser" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="55.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qiY-AN-X87" id="zcs-Th-TsB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vln-tW-uF1">
+                                                    <rect key="frame" x="20" y="10" width="33.5" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hho-XG-55v">
+                                                    <rect key="frame" x="20" y="31.5" width="44" height="14.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Dxi-dO-rv3" firstAttribute="leading" secondItem="vNH-zL-bUk" secondAttribute="leading" id="72c-Zr-2LF"/>
+                            <constraint firstItem="Dxi-dO-rv3" firstAttribute="top" secondItem="vNH-zL-bUk" secondAttribute="top" id="G6h-Bi-ZeQ"/>
+                            <constraint firstItem="vNH-zL-bUk" firstAttribute="bottom" secondItem="Dxi-dO-rv3" secondAttribute="bottom" id="Zqb-Sc-Zbt"/>
+                            <constraint firstItem="vNH-zL-bUk" firstAttribute="trailing" secondItem="Dxi-dO-rv3" secondAttribute="trailing" id="keo-Bi-VrR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="vNH-zL-bUk"/>
                     </view>
                     <navigationItem key="navigationItem" title="New Tab" id="64s-9u-Paa"/>
