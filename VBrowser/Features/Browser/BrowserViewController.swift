@@ -28,6 +28,7 @@ class BrowserViewController: UIViewController {
         configureSearchBar()
         configureWebView()
         configureWebViewError()
+        updateNavigationToolBarButtons()
     }
     
     override func viewDidLayoutSubviews() {
@@ -67,13 +68,20 @@ class BrowserViewController: UIViewController {
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {
         if currentWebView.canGoBack {
-            currentWebView.goBack()
+            if errorView.isDescendant(of: browserView) {
+                hideWebViewError()
+            } else {
+                currentWebView.goBack()
+            }
+            searchBar.text = currentWebView.url?.absoluteString
         }
     }
     
     @IBAction func goForward(_ sender: UIBarButtonItem) {
         if currentWebView.canGoForward {
             currentWebView.goForward()
+            hideWebViewError()
+            searchBar.text = currentWebView.url?.absoluteString
         }
     }
     
@@ -82,7 +90,7 @@ class BrowserViewController: UIViewController {
     }
     
     func loadWebSite(withInput input: String, isURLDoamin isURLDomain: Bool) {
-        var encodedURL: String = input
+        var encodedURL: String = input.lowercased()
         
         if isURLDomain {
             if encodedURL.starts(with: "http://") {
