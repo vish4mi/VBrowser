@@ -9,6 +9,11 @@
 import Foundation
 
 struct SegueID {
-    static let tabSegue = "tabSegueIdentifier"
-    static let bookmarkSegue = "bookmarkSegueIdentifier"
+    static let kTabSegue = "tabSegueIdentifier"
+    static let kBookmarkSegue = "bookmarkSegueIdentifier"
+}
+
+struct Identifier {
+    static let kTabCell = "TabTableViewCellIdentifier"
+    static let kBookmarkCell = "BookmarkTableViewCellIdentifier"
 }

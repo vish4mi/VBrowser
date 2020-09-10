@@ -10,6 +10,8 @@ import UIKit
 
 class BookmarkTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,6 +21,11 @@ class BookmarkTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func setupCell(withTitle title: String, andSubtitle subtitle: String) {
+        titleLabel.text = title
+        subtitleLabel.text = subtitle
     }
 
 }

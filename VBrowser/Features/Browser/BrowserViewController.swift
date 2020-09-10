@@ -70,20 +70,26 @@ class BrowserViewController: UIViewController {
         errorLabel.textAlignment = .center
         errorLabel.font = UIFont(name: "HelveticaNeue", size: 24)
         errorLabel.numberOfLines = 0
-        
-        //errorView.addSubview(errorLabel)
-        //browserView.addSubview(errorView)
+    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == SegueID.tabSegue {
+        if segue.identifier == SegueID.kTabSegue {
             let tabsViewController = segue.destination as! BrowserTabViewController
             tabsViewController.tabs = self.tabs
             
-        } else if segue.identifier == SegueID.bookmarkSegue {
+        } else if segue.identifier == SegueID.kBookmarkSegue {
             let bookmarkViewController = segue.destination as! BookmarkViewController
             bookmarkViewController.bookmarks = self.bookmarks
         }
+    }
+    
+    @IBAction func bookmarkButtonClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: SegueID.kBookmarkSegue, sender: self)
+    }
+    
+    @IBAction func tabsButtonClicked(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: SegueID.kTabSegue, sender: self)
     }
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {
@@ -173,7 +179,15 @@ extension BrowserViewController: UISearchBarDelegate {
     }
 
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        print(searchBar.text ?? "")
+        if let url = currentWebView.url?.absoluteString {
+            let realm = try! Realm()
+            let newBookmark: Bookmark = Bookmark(value: ["url": url, "title": currentWebView.title])
+            
+            try! realm.write {
+                realm.add(newBookmark, update: .all)
+            }
+            loadBookmarks()
+        }
     }
 
 }

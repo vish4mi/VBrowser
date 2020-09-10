@@ -80,8 +80,16 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="VBrowser" id="Oi5-MS-Cqq">
-                        <barButtonItem key="leftBarButtonItem" title="Bookmarks" id="HEA-Gm-JHO"/>
-                        <barButtonItem key="rightBarButtonItem" title="Tabs" id="WWM-Tr-0ob"/>
+                        <barButtonItem key="leftBarButtonItem" title="Bookmarks" id="HEA-Gm-JHO">
+                            <connections>
+                                <action selector="bookmarkButtonClicked:" destination="BYZ-38-t0r" id="yCK-FF-V3A"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Tabs" id="WWM-Tr-0ob">
+                            <connections>
+                                <action selector="tabsButtonClicked:" destination="BYZ-38-t0r" id="xdz-Cc-IME"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
@@ -135,8 +143,16 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subtitleLabel" destination="Qce-dv-UvE" id="gds-YQ-RXd"/>
+                                            <outlet property="titleLabel" destination="TZ6-PE-tQX" id="qcy-dn-MA8"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="rDw-MF-rIx" id="ArG-1O-dG1"/>
+                                    <outlet property="delegate" destination="rDw-MF-rIx" id="22c-pr-TG3"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -192,6 +208,10 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="subtitleLabel" destination="hho-XG-55v" id="941-k6-SyY"/>
+                                            <outlet property="titleLabel" destination="vln-tW-uF1" id="cvb-hv-zgr"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

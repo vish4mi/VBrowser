@@ -13,7 +13,9 @@ class BrowserTabViewController: UIViewController {
 
     @IBOutlet weak var tabsTableView: UITableView!
     var tabs = [Tab]()
-    
+    var delegate: BrowserViewController?
+    var selectedTab: Int!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,12 +30,33 @@ extension BrowserTabViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(withIdentifier: "abc", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.kTabCell, for: indexPath) as! TabTableViewCell
+        
+        if indexPath.row < tabs.count {
+            let tab: Tab = tabs[indexPath.row]
+            cell.setupCell(withTitle: tab.title, andSubtitle: tab.url)
+        } else {
+            cell.setupCell(withTitle: "", andSubtitle: "")
+        }
+        
+        if indexPath.row == selectedTab {
+            cell.layer.borderWidth = 1.0
+            cell.layer.borderColor = UIColor.green.cgColor
+        }
+        
+        return cell
     }
     
     
 }
 
 extension BrowserTabViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row < tabs.count {
+            if indexPath.row != selectedTab {
+                
+            }
+            navigationController?.popViewController(animated: true)
+        }
+    }
 }
