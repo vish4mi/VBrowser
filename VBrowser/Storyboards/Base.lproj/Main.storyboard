@@ -214,6 +214,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="M7K-1q-hQK" id="pnr-T4-hCg"/>
+                                    <outlet property="delegate" destination="M7K-1q-hQK" id="Uwv-2W-qZ3"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -225,7 +229,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="vNH-zL-bUk"/>
                     </view>
-                    <navigationItem key="navigationItem" title="New Tab" id="64s-9u-Paa"/>
+                    <navigationItem key="navigationItem" title="New Tab" id="64s-9u-Paa">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="aS8-2F-X0O">
+                            <connections>
+                                <action selector="addTabButtonClicked:" destination="M7K-1q-hQK" id="kym-DK-KSl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tabsTableView" destination="Dxi-dO-rv3" id="53C-rV-dDL"/>
                     </connections>

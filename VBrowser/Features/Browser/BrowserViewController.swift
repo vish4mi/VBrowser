@@ -20,42 +20,44 @@ class BrowserViewController: UIViewController {
     @IBOutlet weak var bookmarksButton: UIBarButtonItem!
     @IBOutlet weak var tabsButton: UIBarButtonItem!
     
-    var currentWebView: WKWebView!
+    var currentWebView: WKWebView?
     var errorView = UIView()
     var errorLabel = UILabel()
     
     var bookmarks = [Bookmark]()
     var tabs = [Tab]()
     var webviews = [WKWebView]()
+    var selectedTab: Int!
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureSearchBar()
-        configureWebView()
-        configureWebViewError()
-        updateNavigationToolBarButtons()
         loadBookmarks()
         loadTabs()
+        configureSearchBar()
+        configureWebViewError()
+        loadWebView()
+        updateNavigationToolBarButtons()
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        currentWebView.frame = CGRect(x: 0.0, y: 0.0, width: browserView.bounds.width, height: browserView.bounds.height)
+        currentWebView?.frame = CGRect(x: 0.0, y: 0.0, width: browserView.bounds.width, height: browserView.bounds.height)
     }
     
     func configureSearchBar() {
         searchBar.delegate = self
     }
     
-    func configureWebView() {
+    func configureWebView() -> WKWebView {
         let webconfig = WKWebViewConfiguration()
         let frame = CGRect(x: 0.0, y: 0.0, width: browserView.bounds.width, height: browserView.bounds.height)
         
-        currentWebView = WKWebView(frame: frame, configuration: webconfig)
-        currentWebView.navigationDelegate = self
-        browserView.addSubview(currentWebView)
+        let webView = WKWebView(frame: frame, configuration: webconfig)
+        webView.navigationDelegate = self
+        currentWebView = webView
+        return webView
     }
     
     func configureWebViewError() {
@@ -77,10 +79,13 @@ class BrowserViewController: UIViewController {
         if segue.identifier == SegueID.kTabSegue {
             let tabsViewController = segue.destination as! BrowserTabViewController
             tabsViewController.tabs = self.tabs
+            tabsViewController.delegate = self
+            tabsViewController.selectedTab = selectedTab
             
         } else if segue.identifier == SegueID.kBookmarkSegue {
             let bookmarkViewController = segue.destination as! BookmarkViewController
             bookmarkViewController.bookmarks = self.bookmarks
+            bookmarkViewController.delegate = self
         }
     }
     
@@ -93,47 +98,74 @@ class BrowserViewController: UIViewController {
     }
     
     @IBAction func goBack(_ sender: UIBarButtonItem) {
-        if currentWebView.canGoBack {
+        if currentWebView?.canGoBack ?? false {
             if errorView.isDescendant(of: browserView) {
                 hideWebViewError()
             } else {
-                currentWebView.goBack()
+                currentWebView?.goBack()
             }
-            searchBar.text = currentWebView.url?.absoluteString
+            searchBar.text = currentWebView?.url?.absoluteString
         }
     }
     
     @IBAction func goForward(_ sender: UIBarButtonItem) {
-        if currentWebView.canGoForward {
-            currentWebView.goForward()
+        if currentWebView?.canGoForward ?? false {
+            currentWebView?.goForward()
             hideWebViewError()
-            searchBar.text = currentWebView.url?.absoluteString
+            searchBar.text = currentWebView?.url?.absoluteString
         }
     }
     
     @IBAction func reload(_ sender: UIBarButtonItem) {
-        currentWebView.reload()
+        currentWebView?.reload()
+        searchBar.text = currentWebView?.url?.absoluteString
     }
     
-    func loadWebSite(withInput input: String, isURLDoamin isURLDomain: Bool) {
+    func loadWebView() {
+        if var aWebView = currentWebView {
+            aWebView.removeFromSuperview()
+            aWebView = webviews[selectedTab]
+            browserView.addSubview(aWebView)
+            
+            currentWebView = aWebView
+            
+            if aWebView.url == nil && !tabs[selectedTab].url.isEmpty {
+                loadWebSite(withInput: tabs[selectedTab].url, isURLDoamin: true, andURLProcessed: true)
+            } else {
+                searchBar.text = currentWebView?.url?.absoluteString
+            }
+            updateNavigationToolBarButtons()
+        }
+    }
+    
+    func loadWebSite(withInput input: String, isURLDoamin isURLDomain: Bool, andURLProcessed isURLPreprocessed: Bool) {
         var encodedURL: String = input.lowercased()
         
-        if isURLDomain {
-            if encodedURL.starts(with: "http://") {
-                encodedURL = String(encodedURL.dropFirst(7))
-            } else if encodedURL.starts(with: "https://") {
-                encodedURL = String(encodedURL.dropFirst(8))
+        if !isURLPreprocessed {
+            if isURLDomain {
+                if encodedURL.starts(with: "http://") {
+                    encodedURL = String(encodedURL.dropFirst(7))
+                } else if encodedURL.starts(with: "https://") {
+                    encodedURL = String(encodedURL.dropFirst(8))
+                }
+                encodedURL = "https://" + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+            } else {
+                encodedURL = "https://www.google.com/search?dcr=0&q=" + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
             }
-            encodedURL = "https://" + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
-        } else {
-            encodedURL = "https://www.google.com/search?dcr=0&q=" + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
         }
         
         if let url = URL(string: encodedURL) {
             let request = URLRequest(url: url)
-            currentWebView.load(request)
+            currentWebView?.load(request)
             hideWebViewError()
             searchBar.text = encodedURL.lowercased()
+            
+            let tab: Tab = tabs[selectedTab]
+            let realm = try! Realm()
+            try! realm.write {
+                tab.initialURL = encodedURL.lowercased()
+            }
+            
         }
     }
     
@@ -149,13 +181,13 @@ class BrowserViewController: UIViewController {
     }
     
     func updateNavigationToolBarButtons() {
-        if currentWebView.canGoBack {
+        if currentWebView?.canGoBack ?? false {
             backwardButton.isEnabled = true
         } else {
             backwardButton.isEnabled = false
         }
         
-        if currentWebView.canGoForward {
+        if currentWebView?.canGoForward ?? false {
             forwardButton.isEnabled = true
         } else {
             forwardButton.isEnabled = false
@@ -170,18 +202,18 @@ extension BrowserViewController: UISearchBarDelegate {
         if let input = searchBar.text?.trimmingCharacters(in: .whitespaces) {
             if !input.isEmpty {
                 if input.hasSuffix(".com") || input.hasSuffix(".com/") || input.hasSuffix(".in") || input.hasSuffix(".in/") {
-                    loadWebSite(withInput: input, isURLDoamin: true)
+                    loadWebSite(withInput: input, isURLDoamin: true, andURLProcessed: false)
                 } else {
-                    loadWebSite(withInput: input, isURLDoamin: false)
+                    loadWebSite(withInput: input, isURLDoamin: false, andURLProcessed: false)
                 }
             }
         }
     }
 
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        if let url = currentWebView.url?.absoluteString {
+        if let url = currentWebView?.url?.absoluteString {
             let realm = try! Realm()
-            let newBookmark: Bookmark = Bookmark(value: ["url": url, "title": currentWebView.title])
+            let newBookmark: Bookmark = Bookmark(value: ["url": url, "title": currentWebView?.title])
             
             try! realm.write {
                 realm.add(newBookmark, update: .all)
@@ -219,6 +251,14 @@ extension BrowserViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         print("Finished")
         updateNavigationToolBarButtons()
+        let tab: Tab = tabs[selectedTab]
+        let realm = try! Realm()
+        try! realm.write {
+            if let title = currentWebView?.title, let url = currentWebView?.url?.absoluteString {
+                tab.title = title
+                tab.url = url
+            }
+        }
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -236,7 +276,7 @@ extension BrowserViewController {
     func loadBookmarks() {
         let realm = try! Realm()
         let results = realm.objects(Bookmark.self)
-        
+        bookmarks.removeAll()
         for result in results {
             bookmarks.append(result)
         }
@@ -250,7 +290,38 @@ extension BrowserViewController {
         let results = realm.objects(Tab.self)
         
         for result in results {
+            webviews.append(configureWebView())
             tabs.append(result)
+        }
+        selectedTab = 0
+    }
+}
+
+//Mark:- Tab methods
+extension BrowserViewController {
+    func addTab(_ tab: Tab) {
+        tabs.append(tab)
+        selectedTab = tabs.count - 1
+        webviews.append(configureWebView())
+        loadWebView()
+    }
+    
+    func deleteTab(_ tab: Tab, _ tabIndex: Int) {
+        if tabIndex < tabs.count && tabIndex < webviews.count {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.delete(tab)
+            }
+            tabs.remove(at: tabIndex)
+            webviews.remove(at: tabIndex)
+            if selectedTab == tabIndex {
+                selectedTab = tabIndex - 1
+                loadWebView()
+                navigationController?.popViewController(animated: true)
+                
+            } else if selectedTab > tabIndex {
+                selectedTab = selectedTab - 1
+            }
         }
     }
 }

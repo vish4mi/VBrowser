@@ -32,7 +32,5 @@ class TabTableViewCell: UITableViewCell {
             titleLabel.text = title
             subtitleLabel.text = subtitle
         }
-        titleLabel.text = title
-        subtitleLabel.text = subtitle
     }
 }

@@ -10,9 +10,9 @@ import Foundation
 import RealmSwift
 
 class Tab: Object {
-    dynamic var url: String = ""
-    dynamic var initialURL: String = ""
-    dynamic var title: String = ""
+    @objc dynamic var url: String = ""
+    @objc dynamic var initialURL: String = ""
+    @objc dynamic var title: String = ""
     
     var tabDescription: String {
         let urlDescription = "URL: \(url)\n"
