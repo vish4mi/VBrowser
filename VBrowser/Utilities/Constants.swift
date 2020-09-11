@@ -17,3 +17,12 @@ struct Identifier {
     static let kTabCell = "TabTableViewCellIdentifier"
     static let kBookmarkCell = "BookmarkTableViewCellIdentifier"
 }
+
+enum SearchEngine: Int {
+    case google = 1
+    case ask
+    case bing
+    case yahoo
+    case duckduckGo
+}
+

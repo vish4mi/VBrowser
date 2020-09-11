@@ -73,7 +73,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="Ntd-Ku-d53"/>
-                        <barButtonItem title="Item" image="google" id="mEd-bZ-Fxp"/>
+                        <barButtonItem title="Item" image="google" id="mEd-bZ-Fxp">
+                            <connections>
+                                <action selector="changeSearchEngineButtonClicked:" destination="BYZ-38-t0r" id="DEx-RV-ZYN"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="pLQ-op-PYb"/>
                         <barButtonItem systemItem="refresh" id="0VK-Oh-pW8">
                             <connections>

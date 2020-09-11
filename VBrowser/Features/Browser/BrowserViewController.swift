@@ -121,6 +121,10 @@ class BrowserViewController: UIViewController {
         searchBar.text = currentWebView?.url?.absoluteString
     }
     
+    
+    @IBAction func changeSearchEngineButtonClicked(_ sender: UIBarButtonItem) {
+    }
+    
     func loadWebView() {
         if var aWebView = currentWebView {
             aWebView.removeFromSuperview()
