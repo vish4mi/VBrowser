@@ -7,4 +7,5 @@ target 'VBrowser' do
 
   # Pods for VBrowser
   pod 'RealmSwift', '=10.0.0-beta.3'
+  pod "Bottomsheet"
 end
