@@ -47,9 +47,9 @@ struct NibName {
     static let kBottomSheet = "BottomSheetTableViewCell"
 }
 
-let searchEngines = [["id": 1, "data":["name": "Google", "url": "https://www.google.com/search?dcr=0&q="]],
-                     ["id": 2, "data":["name": "Ask.com", "url": "https://www.ask.com/web?o=0&l=dir&qo=serpSearchTopBox&q="]],
-                     ["id": 3, "data":["name": "Bing", "url": "https://www.bing.com/search?q="]],
-                     ["id": 4, "data":["name": "Yahoo", "url": "https://in.search.yahoo.com/search?p="]],
-                     ["id": 5, "data":["name": "DuckDuckGo", "url": "https://duckduckgo.com/?q="]]]
+let searchEngines = [["id": 0, "data":["name": "Google", "url": "https://www.google.com/search?dcr=0&q=", "imageName":"google"]],
+                     ["id": 1, "data":["name": "Ask.com", "url": "https://www.ask.com/web?o=0&l=dir&qo=serpSearchTopBox&q=", "imageName":"ask"]],
+                     ["id": 2, "data":["name": "Bing", "url": "https://www.bing.com/search?q=", "imageName":"bing"]],
+                     ["id": 3, "data":["name": "Yahoo", "url": "https://in.search.yahoo.com/search?p=", "imageName":"yahoo"]],
+                     ["id": 4, "data":["name": "DuckDuckGo", "url": "https://duckduckgo.com/?q=", "imageName":"duckduckGo"]]]
 

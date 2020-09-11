@@ -25,12 +25,12 @@ class BottomSheetTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        engineImageView.image = UIImage(named: "")
+        engineImageView.image = UIImage(named: "")?.withRenderingMode(.alwaysOriginal)
         engineTitleLabel.text = ""
     }
     
     func setupCell(withImageName imageName: String, andTitle title: String) {
-        engineImageView.image = UIImage(named: imageName)
+        engineImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
         engineTitleLabel.text = title
     }
     

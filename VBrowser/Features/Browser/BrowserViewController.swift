@@ -31,10 +31,12 @@ class BrowserViewController: UIViewController {
     var webviews = [WKWebView]()
     var selectedTab: Int!
     var searchEngineURL: String = "https://www.google.com/search?dcr=0&q="
+    let realm = try! Realm()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadDefaultSearchEngine()
         loadBookmarks()
         loadTabs()
         configureSearchBar()
@@ -191,11 +193,24 @@ class BrowserViewController: UIViewController {
             searchBar.text = encodedURL.lowercased()
             
             let tab: Tab = tabs[selectedTab]
-            let realm = try! Realm()
+            
             try! realm.write {
                 tab.initialURL = encodedURL.lowercased()
             }
             
+        }
+    }
+    
+    func loadDefaultSearchEngine() {
+        let defaultSearchEngine = getDefaultSearchEngine()
+        let engines = realm.objects(Engine.self)
+        
+        for engine in engines {
+            if engine.id == defaultSearchEngine {
+                searchEngineURL = engine.url
+                searchEngineButton.image = UIImage(named: engine.imageName)?.withRenderingMode(.alwaysOriginal)
+                break
+            }
         }
     }
     
@@ -242,7 +257,6 @@ extension BrowserViewController: UISearchBarDelegate {
 
     func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
         if let url = currentWebView?.url?.absoluteString {
-            let realm = try! Realm()
             let newBookmark: Bookmark = Bookmark(value: ["url": url, "title": currentWebView?.title])
             
             try! realm.write {
@@ -282,7 +296,7 @@ extension BrowserViewController: WKNavigationDelegate {
         print("Finished")
         updateNavigationToolBarButtons()
         let tab: Tab = tabs[selectedTab]
-        let realm = try! Realm()
+        
         try! realm.write {
             if let title = currentWebView?.title, let url = currentWebView?.url?.absoluteString {
                 tab.title = title
@@ -304,7 +318,7 @@ extension BrowserViewController: WKNavigationDelegate {
 
 extension BrowserViewController {
     func loadBookmarks() {
-        let realm = try! Realm()
+        
         let results = realm.objects(Bookmark.self)
         bookmarks.removeAll()
         for result in results {
@@ -316,7 +330,7 @@ extension BrowserViewController {
 
 extension BrowserViewController {
     func loadTabs() {
-        let realm = try! Realm()
+        
         let results = realm.objects(Tab.self)
         
         for result in results {
@@ -338,7 +352,7 @@ extension BrowserViewController {
     
     func deleteTab(_ tab: Tab, _ tabIndex: Int) {
         if tabIndex < tabs.count && tabIndex < webviews.count {
-            let realm = try! Realm()
+            
             try! realm.write {
                 realm.delete(tab)
             }
@@ -363,27 +377,29 @@ extension BrowserViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.kBottomSheetCell, for: indexPath) as! BottomSheetTableViewCell
-        if indexPath.row < searchEngines.count {
-            let searchEngine = searchEngines[indexPath.row]
-            let id: Int = searchEngine["id"] as! Int
-            let data: [String: String] = searchEngine["data"] as! [String: String]
-            let name: String = data["name"]!
-            
-            cell.setupCell(withImageName: SearchEngine(rawValue: id)!.imageName, andTitle: name)
+        
+        let engines = realm.objects(Engine.self)
+        if indexPath.row < engines.count {
+            let engine = engines[indexPath.row]
+            let imageName = engine.imageName
+            let name = engine.name
+            cell.setupCell(withImageName: imageName, andTitle: name)
         }
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row < searchEngines.count {
-            let searchEngine = searchEngines[indexPath.row]
-            let id: Int = searchEngine["id"] as! Int
-            let data: [String: String] = searchEngine["data"] as! [String: String]
-            let url: String = data["url"]!
-            searchEngineURL = url
-            searchEngineButton.image = UIImage.init(named: SearchEngine(rawValue: id)!.imageName)
-            self.navigationController?.dismiss(animated: true, completion: nil)
-            currentWebView?.reload()
+            let engines = realm.objects(Engine.self)
+            if indexPath.row < engines.count {
+                let engine = engines[indexPath.row]
+                let url = engine.url
+                let imageName = engine.imageName
+                searchEngineURL = url
+                searchEngineButton.image = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
+                self.navigationController?.dismiss(animated: true, completion: nil)
+                currentWebView?.reload()
+            }
         }
     }
 }
