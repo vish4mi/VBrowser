@@ -147,7 +147,7 @@ class BrowserViewController: UIViewController {
         }
         bottomSheetVC.viewActionType = .tappedDismiss
         bottomSheetVC.overlayBackgroundColor = UIColor.black.withAlphaComponent(0.6)
-        bottomSheetVC.initializeHeight = 200
+        bottomSheetVC.initializeHeight = view.bounds.height/2
         DispatchQueue.main.async {
             self.present(bottomSheetVC, animated: true, completion: nil)
         }
