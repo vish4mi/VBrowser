@@ -10,6 +10,7 @@ import UIKit
 
 class BookmarkTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var bookmarkContentView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
     override func awakeFromNib() {
@@ -21,6 +22,19 @@ class BookmarkTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        bookmarkContentView.dropShadow(with: nil)
+    }
+    
+    func configureCell() {
+        bookmarkContentView.layer.cornerRadius = 6.0
+        bookmarkContentView.layer.borderColor = UIColor.lightGray.cgColor
+        bookmarkContentView.layer.borderWidth = 1.0
+        
+        bookmarkContentView.dropShadow(with: nil)
     }
     
     func setupCell(withTitle title: String, andSubtitle subtitle: String) {

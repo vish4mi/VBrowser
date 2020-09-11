@@ -32,6 +32,7 @@ extension BookmarkViewController: UITableViewDataSource {
         let cell = tableView .dequeueReusableCell(withIdentifier: Identifier.kBookmarkCell, for: indexPath) as! BookmarkTableViewCell
         if indexPath.row < bookmarks.count {
             let bookmark: Bookmark = bookmarks[indexPath.row]
+            cell.configureCell()
             cell.setupCell(withTitle: bookmark.title, andSubtitle: bookmark.url)
         }
         return cell

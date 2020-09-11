@@ -10,6 +10,7 @@ import UIKit
 
 class BottomSheetTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var bottomSheetContentView: UIView!
     @IBOutlet weak var engineImageView: UIImageView!
     @IBOutlet weak var engineTitleLabel: UILabel!
     override func awakeFromNib() {
@@ -21,6 +22,18 @@ class BottomSheetTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        bottomSheetContentView.dropShadow(with: nil)
+    }
+    
+    func configure() {
+        bottomSheetContentView.layer.cornerRadius = 6.0
+        bottomSheetContentView.layer.borderColor = UIColor.lightGray.cgColor
+        bottomSheetContentView.layer.borderWidth = 1.0
+        bottomSheetContentView.dropShadow(with: nil)
     }
     
     override func prepareForReuse() {

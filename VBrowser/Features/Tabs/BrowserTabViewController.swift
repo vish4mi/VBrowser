@@ -46,7 +46,7 @@ extension BrowserTabViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.kTabCell, for: indexPath) as! TabTableViewCell
-        
+        cell.configureCell()
         if indexPath.row < tabs.count {
             let tab: Tab = tabs[indexPath.row]
             cell.setupCell(withTitle: tab.title, andSubtitle: tab.url)
@@ -55,8 +55,7 @@ extension BrowserTabViewController: UITableViewDataSource {
         }
         
         if indexPath.row == selectedTab {
-            cell.layer.borderWidth = 1.0
-            cell.layer.borderColor = UIColor.green.cgColor
+            cell.addShadow()
         }
         
         return cell

@@ -144,6 +144,7 @@ class BrowserViewController: UIViewController {
             tableView.register(UINib(nibName: NibName.kBottomSheet, bundle: nil), forCellReuseIdentifier: Identifier.kBottomSheetCell)
             tableView.contentInset.top = 64
             tableView.scrollIndicatorInsets.top = 64
+            tableView.separatorStyle = .none
         }
         bottomSheetVC.viewActionType = .tappedDismiss
         bottomSheetVC.overlayBackgroundColor = UIColor.black.withAlphaComponent(0.6)
