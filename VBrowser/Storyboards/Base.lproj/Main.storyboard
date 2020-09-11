@@ -73,7 +73,8 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem systemItem="flexibleSpace" id="Ntd-Ku-d53"/>
-                        <barButtonItem image="duckduckGo" style="plain" id="mEd-bZ-Fxp">
+                        <barButtonItem image="google" style="plain" id="mEd-bZ-Fxp">
+                            <inset key="imageInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="-10"/>
                             <connections>
                                 <action selector="changeSearchEngineButtonClicked:" destination="BYZ-38-t0r" id="DEx-RV-ZYN"/>
                             </connections>
@@ -253,6 +254,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="duckduckGo" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="google" width="170.66667175292969" height="170.66667175292969"/>
     </resources>
 </document>
