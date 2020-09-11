@@ -9,6 +9,7 @@
 import UIKit
 import WebKit
 import RealmSwift
+import Bottomsheet
 
 class BrowserViewController: UIViewController {
     
@@ -19,6 +20,7 @@ class BrowserViewController: UIViewController {
     @IBOutlet weak var reloadButton: UIBarButtonItem!
     @IBOutlet weak var bookmarksButton: UIBarButtonItem!
     @IBOutlet weak var tabsButton: UIBarButtonItem!
+    @IBOutlet weak var searchEngineButton: UIBarButtonItem!
     
     var currentWebView: WKWebView?
     var errorView = UIView()
@@ -28,7 +30,7 @@ class BrowserViewController: UIViewController {
     var tabs = [Tab]()
     var webviews = [WKWebView]()
     var selectedTab: Int!
-    
+    var searchEngineURL: String = "https://www.google.com/search?dcr=0&q="
     
     
     override func viewDidLoad() {
@@ -123,6 +125,30 @@ class BrowserViewController: UIViewController {
     
     
     @IBAction func changeSearchEngineButtonClicked(_ sender: UIBarButtonItem) {
+        let bottomSheetVC = BottomsheetController()
+        bottomSheetVC.addNavigationbar { navigationBar in
+            let item = UINavigationItem(title: "Select Engine")
+            let rightButton = UIBarButtonItem(title: "Dismiss", style: .plain, target: bottomSheetVC, action: #selector(BottomsheetController.dismiss(_:)))
+            item.rightBarButtonItem = rightButton
+            let leftButton = UIBarButtonItem(title: "Present", style: .plain, target: bottomSheetVC, action: #selector(BottomsheetController.present(_:)))
+            item.leftBarButtonItem = leftButton
+            navigationBar.items = [item]
+        }
+        bottomSheetVC.addTableView { [weak self] tableView in
+            tableView.delegate = self
+            tableView.dataSource = self
+            tableView.rowHeight = 100
+            tableView.estimatedRowHeight = 100
+            tableView.register(UINib(nibName: NibName.kBottomSheet, bundle: nil), forCellReuseIdentifier: Identifier.kBottomSheetCell)
+            tableView.contentInset.top = 64
+            tableView.scrollIndicatorInsets.top = 64
+        }
+        bottomSheetVC.viewActionType = .tappedDismiss
+        bottomSheetVC.overlayBackgroundColor = UIColor.black.withAlphaComponent(0.6)
+        bottomSheetVC.initializeHeight = 200
+        DispatchQueue.main.async {
+            self.present(bottomSheetVC, animated: true, completion: nil)
+        }
     }
     
     func loadWebView() {
@@ -154,7 +180,7 @@ class BrowserViewController: UIViewController {
                 }
                 encodedURL = "https://" + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
             } else {
-                encodedURL = "https://www.google.com/search?dcr=0&q=" + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
+                encodedURL = searchEngineURL + encodedURL.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)!
             }
         }
         
@@ -326,6 +352,38 @@ extension BrowserViewController {
             } else if selectedTab > tabIndex {
                 selectedTab = selectedTab - 1
             }
+        }
+    }
+}
+
+extension BrowserViewController: UITableViewDataSource, UITableViewDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchEngines.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: Identifier.kBottomSheetCell, for: indexPath) as! BottomSheetTableViewCell
+        if indexPath.row < searchEngines.count {
+            let searchEngine = searchEngines[indexPath.row]
+            let id: Int = searchEngine["id"] as! Int
+            let data: [String: String] = searchEngine["data"] as! [String: String]
+            let name: String = data["name"]!
+            
+            cell.setupCell(withImageName: SearchEngine(rawValue: id)!.imageName, andTitle: name)
+        }
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row < searchEngines.count {
+            let searchEngine = searchEngines[indexPath.row]
+            let id: Int = searchEngine["id"] as! Int
+            let data: [String: String] = searchEngine["data"] as! [String: String]
+            let url: String = data["url"]!
+            searchEngineURL = url
+            searchEngineButton.image = UIImage.init(named: SearchEngine(rawValue: id)!.imageName)
+            self.navigationController?.dismiss(animated: true, completion: nil)
+            currentWebView?.reload()
         }
     }
 }

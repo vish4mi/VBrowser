@@ -105,6 +105,7 @@
                         <outlet property="forwardButton" destination="5J5-5S-r51" id="o0x-qx-QQo"/>
                         <outlet property="reloadButton" destination="0VK-Oh-pW8" id="v1R-cI-Z4z"/>
                         <outlet property="searchBar" destination="m5l-w2-ZyS" id="RNO-xX-l00"/>
+                        <outlet property="searchEngineButton" destination="mEd-bZ-Fxp" id="me1-Jx-MKo"/>
                         <outlet property="tabsButton" destination="WWM-Tr-0ob" id="79f-pP-Cwh"/>
                         <segue destination="rDw-MF-rIx" kind="show" identifier="bookmarkSegueIdentifier" id="NeD-4A-5ky"/>
                         <segue destination="M7K-1q-hQK" kind="show" identifier="tabSegueIdentifier" id="2FE-3G-ucf"/>
