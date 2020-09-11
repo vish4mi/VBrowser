@@ -72,6 +72,8 @@
                                 <action selector="goForward:" destination="BYZ-38-t0r" id="FGQ-EL-d3W"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem systemItem="flexibleSpace" id="Ntd-Ku-d53"/>
+                        <barButtonItem title="Item" image="google" id="mEd-bZ-Fxp"/>
                         <barButtonItem systemItem="flexibleSpace" id="pLQ-op-PYb"/>
                         <barButtonItem systemItem="refresh" id="0VK-Oh-pW8">
                             <connections>
@@ -245,4 +247,7 @@
             <point key="canvasLocation" x="1135" y="-241"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="google" width="170.66667175292969" height="170.66667175292969"/>
+    </resources>
 </document>
