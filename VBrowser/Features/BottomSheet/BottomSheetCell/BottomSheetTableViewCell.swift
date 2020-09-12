@@ -9,7 +9,7 @@
 import UIKit
 
 class BottomSheetTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var bottomSheetContentView: UIView!
     @IBOutlet weak var engineImageView: UIImageView!
     @IBOutlet weak var engineTitleLabel: UILabel!
@@ -17,10 +17,10 @@ class BottomSheetTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
         // Configure the view for the selected state
     }
     
@@ -33,17 +33,16 @@ class BottomSheetTableViewCell: UITableViewCell {
         bottomSheetContentView.layer.cornerRadius = 6.0
         bottomSheetContentView.layer.borderColor = UIColor.lightGray.cgColor
         bottomSheetContentView.layer.borderWidth = 1.0
-        bottomSheetContentView.dropShadow(with: nil)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        engineImageView.image = UIImage(named: "")?.withRenderingMode(.alwaysOriginal)
+        engineImageView.image = UIImage(named: "")
         engineTitleLabel.text = ""
     }
     
     func setupCell(withImageName imageName: String, andTitle title: String) {
-        engineImageView.image = UIImage(named: imageName)?.withRenderingMode(.alwaysOriginal)
+        engineImageView.image = UIImage(named: imageName)
         engineTitleLabel.text = title
     }
     

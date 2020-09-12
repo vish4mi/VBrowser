@@ -385,6 +385,7 @@ extension BrowserViewController: UITableViewDataSource, UITableViewDelegate {
             let imageName = engine.imageName
             let name = engine.name
             cell.setupCell(withImageName: imageName, andTitle: name)
+            cell.configure()
         }
         return cell
     }
