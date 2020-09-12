@@ -24,19 +24,21 @@ class BottomSheetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        bottomSheetContentView.dropShadow(with: nil)
-    }
-    
     func configure() {
         bottomSheetContentView.layer.cornerRadius = 6.0
         bottomSheetContentView.layer.borderColor = UIColor.lightGray.cgColor
         bottomSheetContentView.layer.borderWidth = 1.0
+        addShadow()
+        addObserver(self, forKeyPath: "bottomSheetContentView.bounds", options: .new, context: nil)
+    }
+    
+    func addShadow() {
+        bottomSheetContentView.dropShadow(with: nil)
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        bottomSheetContentView.removeShadows()
         engineImageView.image = UIImage(named: "")
         engineTitleLabel.text = ""
     }
@@ -44,6 +46,13 @@ class BottomSheetTableViewCell: UITableViewCell {
     func setupCell(withImageName imageName: String, andTitle title: String) {
         engineImageView.image = UIImage(named: imageName)
         engineTitleLabel.text = title
+        bottomSheetContentView.layoutIfNeeded()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "bottomSheetContentView.bounds" {
+            addShadow()
+        }
     }
     
 }

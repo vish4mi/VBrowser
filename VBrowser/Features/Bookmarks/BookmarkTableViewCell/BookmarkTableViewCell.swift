@@ -26,7 +26,6 @@ class BookmarkTableViewCell: UITableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        bookmarkContentView.dropShadow(with: nil)
     }
     
     func configureCell() {
@@ -35,6 +34,7 @@ class BookmarkTableViewCell: UITableViewCell {
         bookmarkContentView.layer.borderWidth = 1.0
         
         bookmarkContentView.dropShadow(with: nil)
+        addObserver(self, forKeyPath: "bookmarkContentView.bounds", options: .new, context: nil)
     }
     
     func setupCell(withTitle title: String, andSubtitle subtitle: String) {
@@ -42,4 +42,9 @@ class BookmarkTableViewCell: UITableViewCell {
         subtitleLabel.text = subtitle
     }
 
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "bookmarkContentView.bounds" {
+            bookmarkContentView.dropShadow(with: nil)
+        }
+    }
 }

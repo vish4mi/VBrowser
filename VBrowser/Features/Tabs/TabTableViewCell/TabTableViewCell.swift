@@ -30,17 +30,12 @@ class TabTableViewCell: UITableViewCell {
         shouldAddShadow = false
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        if shouldAddShadow {
-            addShadow()
-        }
-    }
-    
     func configureCell() {
         tabContentView.layer.cornerRadius = 6.0
         tabContentView.layer.borderColor = UIColor.lightGray.cgColor
-        tabContentView.layer.borderWidth = 1.0        
+        tabContentView.layer.borderWidth = 1.0
+        
+        addObserver(self, forKeyPath: "tabContentView.bounds", options: .new, context: nil)
     }
     
     func addShadow() {
@@ -51,10 +46,19 @@ class TabTableViewCell: UITableViewCell {
     func setupCell(withTitle title: String, andSubtitle subtitle: String) {
         if title.isEmpty {
             titleLabel.text = "New Tab"
-            subtitleLabel.text = ""
         } else {
             titleLabel.text = title
             subtitleLabel.text = subtitle
+        }
+        layoutIfNeeded()
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        if keyPath == "tabContentView.bounds" {
+            if shouldAddShadow {
+                addShadow()
+                shouldAddShadow = true
+            }
         }
     }
 }

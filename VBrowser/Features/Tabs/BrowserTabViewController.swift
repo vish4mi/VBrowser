@@ -57,7 +57,7 @@ extension BrowserTabViewController: UITableViewDataSource {
         if indexPath.row == selectedTab {
             cell.addShadow()
         }
-        
+        cell.layoutIfNeeded()
         return cell
     }
     

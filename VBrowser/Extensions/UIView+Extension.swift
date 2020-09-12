@@ -45,7 +45,7 @@ extension UIView {
         shadowLayerTwo.backgroundColor = UIColor(white: 1.0, alpha: 1.0).cgColor
         shadowLayerTwo.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.16).cgColor
         if let aColor = color {
-            shadowLayerOne.shadowColor = aColor.cgColor
+            shadowLayerTwo.shadowColor = aColor.cgColor
         }
         shadowLayerTwo.shadowOffset = CGSize(width: 0, height: 1)
         shadowLayerTwo.shadowOpacity = 1.0
