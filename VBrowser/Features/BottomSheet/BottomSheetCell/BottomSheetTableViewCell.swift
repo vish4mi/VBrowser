@@ -38,7 +38,6 @@ class BottomSheetTableViewCell: UITableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        bottomSheetContentView.removeShadows()
         engineImageView.image = UIImage(named: "")
         engineTitleLabel.text = ""
     }
